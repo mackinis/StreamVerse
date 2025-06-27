@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-body), serif;
+}
+
+@layer base {
+  :root {
+    --background: 220 20% 96%; /* Light mode background */
+    --foreground: 220 20% 10%; /* Light mode foreground */
+
+    --card: 220 20% 96%;
+    --card-foreground: 220 20% 10%;
+
+    --popover: 220 20% 96%;
+    --popover-foreground: 220 20% 10%;
+
+    --primary: 338 72% 51%; /* Deep Rose */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --secondary: 338 72% 85%; /* Lighter Rose for secondary elements */
+    --secondary-foreground: 338 72% 30%; /* Darker Rose for text on secondary */
+
+    --muted: 220 10% 90%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 338 72% 71%; /* Light Rose */
+    --accent-foreground: 0 0% 13%; /* Dark Grey for text on accent */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 15% 85%;
+    --input: 220 15% 88%;
+    --ring: 338 72% 51%; /* Primary color for rings */
+
+    --radius: 0.5rem;
+
+    --chart-1: 338 72% 51%;
+    --chart-2: 338 72% 71%;
+    --chart-3: 300 60% 50%; /* Violet/Purple shade */
+    --chart-4: 338 50% 40%;
+    --chart-5: 300 50% 70%;
+
+    /* Sidebar specific colors, can be adjusted if admin panel needs different theme */
+    --sidebar-background: 0 0% 10%; /* Darker for admin sidebar if distinct */
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 338 72% 61%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 338 72% 51%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 338 72% 51%;
+  }
+
+  .dark {
+    --background: 0 0% 13%; /* Dark Grey */
+    --foreground: 0 0% 98%; /* Almost White */
+
+    --card: 0 0% 18%; /* Slightly lighter than background */
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 338 72% 51%; /* Deep Rose */
+    --primary-foreground: 0 0% 100%; /* White */
+    
+    --secondary: 0 0% 20%; /* Darker secondary */
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 338 72% 71%; /* Light Rose */
+    --accent-foreground: 0 0% 13%; /* Dark Grey for text on accent */
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 25%;
+    --input: 0 0% 20%;
+    --ring: 338 72% 51%; /* Primary color for rings */
+    
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 338 72% 61%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 338 72% 51%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 338 72% 51%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
