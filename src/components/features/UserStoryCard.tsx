@@ -28,15 +28,10 @@ export function UserStoryCard({ story }: UserStoryCardProps) {
             <div className="block cursor-pointer group">
               <div className="relative aspect-video bg-muted flex items-center justify-center">
                 {story.videoPreviewUrl ? (
-                  <video
-                    key={story.id}
-                    src={story.videoPreviewUrl}
+                  <CourseVideoPlayer
+                    url={story.videoPreviewUrl}
+                    isPreview={true}
                     className="w-full h-full object-cover"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    aria-label={`${story.title} video preview`}
                   />
                 ) : (
                   <Image
@@ -89,13 +84,13 @@ export function UserStoryCard({ story }: UserStoryCardProps) {
             By {story.userName} on {formattedDate}
           </DialogDescriptionComponent>
         </DialogHeader>
-        <div className="p-4 space-y-4">
+        <div className="p-4 space-y-4 max-h-[70vh] overflow-y-auto">
            {story.videoPreviewUrl && (
               <div className="aspect-video w-full rounded-md overflow-hidden bg-black">
                 <CourseVideoPlayer key={story.id} url={story.videoPreviewUrl} className="w-full h-full" />
               </div>
            )}
-          <p className="font-body text-foreground">{story.storyText}</p>
+          <p className="font-body text-foreground whitespace-pre-wrap">{story.storyText}</p>
         </div>
          <div className="p-4 border-t flex justify-end">
             <DialogClose asChild>

@@ -27,7 +27,7 @@ export default function CallWaitingPage() {
     if (authLoading || !isClientHydrated) return;
 
     if (!designatedUserId) {
-        toast({ variant: 'destructive', title: "No Active Call", description: "There is no private call session active." });
+        toast({ variant: 'destructive', title: t('noActiveCallTitle'), description: t('noActiveCallDesc') });
         router.replace('/');
         return;
     }

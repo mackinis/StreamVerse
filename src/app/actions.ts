@@ -440,6 +440,31 @@ export async function updateUserStoryApprovalAction(storyId: string, approved: b
   }
 }
 
+export async function updateUserStoryAction(storyId: string, storyData: Partial<Pick<UserStory, 'title' | 'storyText' | 'videoPreviewUrl'>>): Promise<{ success: boolean; error?: string }> {
+  try {
+    const storyRef = doc(db, "user_stories", storyId);
+    await updateDoc(storyRef, {
+      ...storyData,
+      updatedAt: serverTimestamp()
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating user story:", error);
+    return { success: false, error: (error as Error).message || "Failed to update story." };
+  }
+}
+
+export async function deleteUserStoryAction(storyId: string): Promise<{ success: boolean; error?: string }> {
+  try {
+    await deleteDoc(doc(db, "user_stories", storyId));
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting user story:", error);
+    return { success: false, error: (error as Error).message || "Failed to delete story." };
+  }
+}
+
+
 export async function updateUserSuspensionAction(userId: string, isSuspended: boolean): Promise<{ success: boolean; error?: string }> {
   try {
     const userRef = doc(db, "users", userId);

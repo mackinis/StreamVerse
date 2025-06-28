@@ -18,15 +18,15 @@ const initialConfig: AdminConfig = {
   chatAccess: 'public', 
   chatAccessGroup: '',
   heroConfig: {
-    mainText: 'Welcome to ONLYfansLY',
-    secondaryText: 'Your Universe of Streams',
-    descriptionText: 'Discover amazing live content, courses, and connect with creators.',
+    mainText: '',
+    secondaryText: '',
+    descriptionText: '',
     heroImageUrl: '',
     mainTextColor: '#D81B60',
   },
   footerConfig: {
-    logoText: 'ONLYfansLY',
-    slogan: 'Your platform for exclusive content.',
+    logoText: '',
+    slogan: '',
     links: [
       { text: 'footerQuickLinksAboutUs', href: '/about' },
       { text: 'footerQuickLinksPrivacyPolicy', href: '/privacy' },

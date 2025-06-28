@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Navbar } from '@/components/layout/Navbar';
@@ -71,7 +70,7 @@ export default function LivePage() {
   useEffect(() => {
     if (authLoading || !isClientHydrated) return;
     if (designatedUserId) {
-        toast({ variant: 'destructive', title: "Access Restricted", description: "A private call is in session. Access to this page is temporarily limited." });
+        toast({ variant: 'destructive', title: t('livePageAccessDeniedPrivateCallTitle'), description: t('livePageAccessDeniedPrivateCallDesc') });
         router.replace('/'); 
         return;
     }

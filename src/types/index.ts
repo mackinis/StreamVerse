@@ -168,10 +168,15 @@ export type TranslationKey =
   | 'adminHeroLivePreviewMainTextDefault' | 'adminHeroLivePreviewSecondaryTextDefault' | 'adminHeroLivePreviewDescriptionTextDefault'
   | 'adminFooterConfigTitle' | 'adminFooterCustomizeTitle' | 'adminFooterCustomizeDescription'
   | 'adminFooterLogoTextLabel' | 'adminFooterLogoTextPlaceholder'
-  | 'adminFooterLinksLegend' | 'adminFooterLinks' | 'adminFooterLinkTextLabel' | 'adminFooterLinkTextPlaceholder'
+  | 'adminFooterLinksLegend' | 'adminFooterLinkTextLabel' | 'adminFooterLinkTextPlaceholder'
   | 'adminFooterLinkUrlLabel' | 'adminFooterLinkUrlPlaceholder'
   | 'adminFooterAddLinkButton' | 'adminFooterAndroidLinkLabel' | 'adminFooterAndroidLinkPlaceholder'
   | 'adminFooterIosLinkLabel' | 'adminFooterIosLinkPlaceholder'
+  | 'adminFooterLogoUrlLabel' | 'adminFooterLogoUrlPlaceholder' | 'adminFooterLogoSizeLabel'
+  | 'adminFooterLogoWidthPlaceholder' | 'adminFooterLogoHeightPlaceholder' | 'adminFooterLogoAlignmentLabel'
+  | 'adminFooterLogoAlignmentHorizontalLabel' | 'adminFooterLogoAlignmentVerticalLabel'
+  | 'adminFooterLogoAlignmentLeft' | 'adminFooterLogoAlignmentCenter' | 'adminFooterLogoAlignmentRight'
+  | 'adminFooterLogoAlignmentTop' | 'adminFooterLogoAlignmentMiddle' | 'adminFooterLogoAlignmentBottom'
   | 'adminUserStoriesTitle' | 'adminUserStoriesSubmittedTitle' | 'adminUserStoriesSubmittedDescription'
   | 'adminUserStoriesPreviewHeader' | 'adminUserStoriesTitleHeader' | 'adminUserStoriesUserHeader'
   | 'adminUserStoriesStatusHeader' | 'adminUserStoriesActionsHeader' | 'adminUserStoriesNoPreview'
@@ -207,6 +212,7 @@ export type TranslationKey =
   | 'livePageStreamTitleCardDefault' | 'livePageStreamDescriptionCardDefault' | 'livePageStreamNotConfiguredTitle'
   | 'livePageChatUnavailableTitle' | 'livePageChatUnavailableDescription' | 'livePageChatRequiresLogin' | 'livePageChatAccessGroupDenied'
   | 'livePageAccessDeniedTitle' | 'livePageAccessDeniedDescription' 
+  | 'livePageAccessDeniedPrivateCallTitle' | 'livePageAccessDeniedPrivateCallDesc'
   | 'livePageStreamAccessDeniedUser' | 'livePageStreamRequiresLogin' | 'livePageStreamAccessGroupDenied'
   | 'livePageStreamVideoNotSupported'
   | 'livePageGoToHomepageButton'
@@ -224,6 +230,7 @@ export type TranslationKey =
   | 'userVideoCallStatusCallEnded' | 'userVideoCallStatusFailed' | 'userVideoCallStatusAdminEnded'
   | 'userVideoCallStatusCameraError' | 'userVideoCallToastError' | 'userVideoCallStatusCallNotAuthorized'
   | 'userVideoCallWaitingTitle' | 'userVideoCallWaitingDescription'
+  | 'noActiveCallTitle' | 'noActiveCallDesc'
   | 'adminLivestream.pageTitle'
   | 'adminLivestream.configCard.title' | 'adminLivestream.configCard.description'
   | 'adminLivestream.configCard.currentLiveTitleLabel' | 'adminLivestream.configCard.titlePlaceholder'
@@ -287,7 +294,11 @@ export interface AdminConfig {
     mainTextColor?: string;
   };
   footerConfig: {
-    logoText: string;
+    logoUrl: string;
+    logoWidth: number;
+    logoHeight: number;
+    logoAlignmentHorizontal: 'left' | 'center' | 'right';
+    logoAlignmentVertical: 'top' | 'center' | 'bottom';
     slogan: string;
     links: FooterLink[];
     androidAppLink: string;

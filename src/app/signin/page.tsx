@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent, useEffect } from 'react';
+import { useState, FormEvent, useEffect, Suspense } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -14,9 +14,9 @@ import { useToast } from "@/hooks/use-toast";
 import { useAdminConfig } from '@/contexts/AdminConfigContext';
 import { loginUserAction } from '@/app/actions'; // Server Action
 import type { User } from '@/types';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 
-export default function SignInPage() {
+function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -42,8 +42,8 @@ export default function SignInPage() {
         description: message,
         duration: 10000,
       });
-      // Clean the URL
-      router.replace('/signin', undefined);
+      // Clean the URL, use object form to avoid full page reload
+      router.replace('/signin', { scroll: false });
     }
   }, [message, toast, t, router]);
 
@@ -93,60 +93,73 @@ export default function SignInPage() {
   };
 
   return (
+    <Card className="w-full max-w-md shadow-xl">
+      <CardHeader>
+        <CardTitle className="font-headline text-2xl text-center">{t('signInTitle')}</CardTitle>
+        <CardDescription className="text-center">{t('signInDescription')}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="email">{t('emailLabel')}</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="tu@ejemplo.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              aria-required="true"
+            />
+          </div>
+          <div className="space-y-2 relative">
+            <Label htmlFor="password">{t('passwordLabel')}</Label>
+            <Input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              aria-required="true"
+            />
+            <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-6 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </Button>
+          </div>
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? 'Iniciando sesión...' : t('signInButton')}
+          </Button>
+        </form>
+      </CardContent>
+      <CardFooter className="flex flex-col items-center space-y-2 pt-6">
+        <Link href="/forgot-password">
+          <Button variant="link" className="text-sm text-primary">{t('forgotPasswordLink')}</Button>
+        </Link>
+        <p className="text-sm text-muted-foreground">
+          {t('signUpPrompt')}{' '}
+          <Link href="/signup" className="text-primary hover:underline">
+            {t('signUpLink')}
+          </Link>
+        </p>
+      </CardFooter>
+    </Card>
+  );
+}
+
+
+export default function SignInPage() {
+  return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow flex items-center justify-center p-4 bg-background">
-        <Card className="w-full max-w-md shadow-xl">
-          <CardHeader>
-            <CardTitle className="font-headline text-2xl text-center">{t('signInTitle')}</CardTitle>
-            <CardDescription className="text-center">{t('signInDescription')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="email">{t('emailLabel')}</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="tu@ejemplo.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  aria-required="true"
-                />
-              </div>
-              <div className="space-y-2 relative">
-                <Label htmlFor="password">{t('passwordLabel')}</Label>
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  aria-required="true"
-                />
-                <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-6 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </Button>
-              </div>
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? 'Iniciando sesión...' : t('signInButton')}
-              </Button>
-            </form>
-          </CardContent>
-          <CardFooter className="flex flex-col items-center space-y-2 pt-6">
-            <Link href="/forgot-password">
-              <Button variant="link" className="text-sm text-primary">{t('forgotPasswordLink')}</Button>
-            </Link>
-            <p className="text-sm text-muted-foreground">
-              {t('signUpPrompt')}{' '}
-              <Link href="/signup" className="text-primary hover:underline">
-                {t('signUpLink')}
-              </Link>
-            </p>
-          </CardFooter>
-        </Card>
+        <Suspense fallback={
+          <div className="flex items-center justify-center h-96">
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          </div>
+        }>
+          <SignInForm />
+        </Suspense>
       </main>
       <Footer />
     </div>

@@ -62,9 +62,11 @@ export default function UserStoriesPage() {
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
           </div>
         ) : approvedStories.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-items-center">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8">
             {approvedStories.map((story) => (
-              <UserStoryCard key={story.id} story={story} />
+               <div key={story.id} className="w-full max-w-sm">
+                <UserStoryCard story={story} />
+              </div>
             ))}
           </div>
         ) : (
