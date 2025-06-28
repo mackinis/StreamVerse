@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Tv, MessageSquare, Users, Film, Palette, Footprints, Video, Settings2, BookOpen, ImagePlus } from "lucide-react";
+import { LayoutDashboard, Tv, MessageSquare, Users, Film, Palette, Footprints, Video, Settings2, BookOpen, ImagePlus, FileText } from "lucide-react";
 import { useAdminConfig } from "@/contexts/AdminConfigContext";
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -33,6 +33,7 @@ export function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
     { href: "/admin/whatsapp-config", label: "Config. WhatsApp", icon: WhatsAppIcon },
     { href: "/admin/hero-config", label: t('adminHeroConfigTitle'), icon: Palette },
     { href: "/admin/footer-config", label: t('adminFooterConfigTitle'), icon: Footprints },
+    { href: "/admin/policies", label: t('adminPoliciesTitle'), icon: FileText },
     { href: "/admin/courses", label: "Gestionar Cursos", icon: BookOpen },
     { href: "/admin/popups", label: "Popups", icon: ImagePlus },
     { href: "/admin/user-stories", label: t('adminUserStoriesTitle'), icon: Film },

@@ -112,6 +112,19 @@ export interface WhatsAppConfig {
   whatsAppButtonColor: string;
 }
 
+export interface PolicyContent {
+  title: string;
+  content: string;
+  showDate: boolean;
+  lastUpdated: string;
+}
+
+export interface PoliciesConfig {
+  about: PolicyContent;
+  privacy: PolicyContent;
+  terms: PolicyContent;
+}
+
 export type TranslationKey = 
   | 'navHome' | 'navCourses' | 'navStories' | 'navLive' | 'navCall' | 'navAdmin' | 'navLogout' | 'navLogin'
   | 'navLanguage' | 'navLanguageEN' | 'navLanguageES'
@@ -268,6 +281,10 @@ export type TranslationKey =
   | 'adminLivestream.liveStreamForLoggedInUsersOnly' | 'adminLivestream.liveStreamForLoggedInUsersOnlyDescription'
   | 'adminLivestream.defaultStreamTitle' | 'adminLivestream.defaultOfflineMessage'
   | 'adminLivestream.persistentSettings.title' | 'adminLivestream.persistentSettings.fallbackSubtitle'
+  | 'adminPoliciesTitle' | 'adminPoliciesDescription' | 'adminPoliciesAboutTab'
+  | 'adminPoliciesPrivacyTab' | 'adminPoliciesTermsTab' | 'adminPoliciesPageTitleLabel'
+  | 'adminPoliciesContentLabel' | 'adminPoliciesShowDateLabel' | 'adminPoliciesLastUpdatedLabel'
+  | 'adminPoliciesLastUpdatedPlaceholder'
   ;
 
 export interface Translations {
@@ -294,11 +311,7 @@ export interface AdminConfig {
     mainTextColor?: string;
   };
   footerConfig: {
-    logoUrl: string;
-    logoWidth: number;
-    logoHeight: number;
-    logoAlignmentHorizontal: 'left' | 'center' | 'right';
-    logoAlignmentVertical: 'top' | 'center' | 'bottom';
+    logoText: string;
     slogan: string;
     links: FooterLink[];
     androidAppLink: string;
@@ -314,6 +327,7 @@ export interface AdminConfig {
   generalSettings: GeneralSettingsConfig;
   liveStreamAuthorizedUserId: string | null; 
   whatsAppConfig: WhatsAppConfig;
+  policiesConfig: PoliciesConfig;
   liveStreamDefaultTitle?: string;
   persistentSubtitle?: string;
   liveStreamOfflineMessage?: string;
