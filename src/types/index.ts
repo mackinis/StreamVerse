@@ -125,6 +125,15 @@ export interface PoliciesConfig {
   terms: PolicyContent;
 }
 
+export interface HeroConfig {
+    mainText: string;
+    secondaryText: string;
+    descriptionText: string;
+    heroImageUrl?: string;
+    navbarLogoUrl?: string;
+    mainTextColor?: string;
+}
+
 export type TranslationKey = 
   | 'navHome' | 'navCourses' | 'navStories' | 'navLive' | 'navCall' | 'navAdmin' | 'navLogout' | 'navLogin'
   | 'navLanguage' | 'navLanguageEN' | 'navLanguageES'
@@ -303,16 +312,11 @@ export interface AdminConfig {
   liveButtonAccessGroup: string;
   chatAccess: 'public' | 'private' | 'exclusive' | 'loggedIn'; 
   chatAccessGroup: string;
-  heroConfig: {
-    mainText: string;
-    secondaryText: string;
-    descriptionText: string;
-    heroImageUrl?: string;
-    mainTextColor?: string;
-  };
+  heroConfig: HeroConfig;
   footerConfig: {
     logoText: string;
     slogan: string;
+    footerLogoUrl: string;
     links: FooterLink[];
     androidAppLink: string;
     iosAppLink: string;

@@ -22,11 +22,13 @@ const initialConfig: AdminConfig = {
     secondaryText: '',
     descriptionText: '',
     heroImageUrl: '',
+    navbarLogoUrl: '',
     mainTextColor: '#D81B60',
   },
   footerConfig: {
     logoText: '',
     slogan: '',
+    footerLogoUrl: '',
     links: [
       { text: 'footerQuickLinksAboutUs', href: '/about' },
       { text: 'footerQuickLinksPrivacyPolicy', href: '/privacy' },
@@ -261,8 +263,10 @@ export const AdminConfigProvider = ({ children }: { children: ReactNode }) => {
       activeConfig.heroConfig = activeConfig.heroConfig || initialConfig.heroConfig;
       activeConfig.policiesConfig = activeConfig.policiesConfig || initialConfig.policiesConfig;
       activeConfig.heroConfig.heroImageUrl = activeConfig.heroConfig.heroImageUrl || '';
+      activeConfig.heroConfig.navbarLogoUrl = activeConfig.heroConfig.navbarLogoUrl || '';
       activeConfig.heroConfig.mainTextColor = activeConfig.heroConfig.mainTextColor || initialConfig.heroConfig.mainTextColor;
       activeConfig.footerConfig.slogan = activeConfig.footerConfig.slogan || initialConfig.footerConfig.slogan;
+      activeConfig.footerConfig.footerLogoUrl = activeConfig.footerConfig.footerLogoUrl || '';
       activeConfig.streamSource = activeConfig.streamSource || 'url';
 
 

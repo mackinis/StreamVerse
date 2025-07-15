@@ -35,7 +35,8 @@ export function Footer() {
     androidAppIconUrl,
     showIosApp,
     iosAppIconUrl,
-    mobileAppsSectionTitle
+    mobileAppsSectionTitle,
+    footerLogoUrl
   } = config.footerConfig;
 
   const socialLinks = [
@@ -55,7 +56,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <Link href="/" className="flex items-center text-primary hover:text-accent transition-colors mb-4">
-              <ONLYfansLYLogoSmall />
+              {footerLogoUrl ? (
+                <Image src={footerLogoUrl} alt={logoText} width={24} height={24} className="mr-1" />
+              ) : (
+                <ONLYfansLYLogoSmall />
+              )}
               <span className="font-headline text-xl font-semibold">{logoText}</span>
             </Link>
             <p className="text-sm text-muted-foreground">

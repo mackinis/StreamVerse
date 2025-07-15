@@ -42,11 +42,28 @@ export default function HeroConfigPage() {
       <h1 className="text-3xl font-headline font-semibold">Hero Banner Configuration</h1>
       <Card>
         <CardHeader>
-          <CardTitle>Customize Hero Section</CardTitle>
-          <CardDescription>Update the text elements and background image displayed on the main hero banner.</CardDescription>
+          <CardTitle>Customize Header & Hero Section</CardTitle>
+          <CardDescription>Update the logos, text elements and background image displayed on the site.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
+             <div className="space-y-2">
+              <Label htmlFor="navbarLogoUrl">Navbar Logo URL (Optional)</Label>
+              <Input
+                id="navbarLogoUrl"
+                type="url"
+                value={heroState.navbarLogoUrl || ''}
+                onChange={(e) => handleInputChange('navbarLogoUrl', e.target.value)}
+                placeholder="https://example.com/your-logo.png"
+              />
+              <p className="text-xs text-muted-foreground">If provided, this image will replace the default icon in the navbar. Recommended size: 32x32 pixels.</p>
+               {heroState.navbarLogoUrl && (
+                <div className="mt-2 p-2 border rounded-md inline-block bg-muted">
+                  <Image src={heroState.navbarLogoUrl} alt="Logo Preview" width={32} height={32} className="object-contain" />
+                </div>
+              )}
+            </div>
+            
             <div className="space-y-2">
               <Label htmlFor="mainText">Main Headline</Label>
               <Input

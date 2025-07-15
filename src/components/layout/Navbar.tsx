@@ -2,6 +2,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAdminConfig } from '@/contexts/AdminConfigContext';
 import { Button } from '@/components/ui/button';
@@ -104,7 +105,11 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center text-primary hover:text-accent transition-colors">
-            <ONLYfansLYLogo />
+            {config.heroConfig.navbarLogoUrl ? (
+                <Image src={config.heroConfig.navbarLogoUrl} alt={config.footerConfig.logoText || "Logo"} width={32} height={32} className="mr-2" />
+              ) : (
+                <ONLYfansLYLogo />
+            )}
             <span className="font-headline text-2xl font-semibold">ONLYfansLY</span>
           </Link>
 

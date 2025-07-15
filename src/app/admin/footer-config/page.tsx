@@ -13,6 +13,7 @@ import type { FooterLink, AdminConfig } from '@/types';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
+import Image from 'next/image';
 
 type FooterConfigState = AdminConfig['footerConfig'];
 
@@ -73,6 +74,23 @@ export default function FooterConfigPage() {
                 onChange={(e) => handleInputChange('logoText', e.target.value)}
                 placeholder="e.g., ONLYfansLY"
               />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="footerLogoUrl">Footer Logo URL (Optional)</Label>
+              <Input
+                id="footerLogoUrl"
+                type="url"
+                value={footerState.footerLogoUrl || ''}
+                onChange={(e) => handleInputChange('footerLogoUrl', e.target.value)}
+                placeholder="https://example.com/your-logo.png"
+              />
+              <p className="text-xs text-muted-foreground">If provided, this image will be used instead of the default icon. Recommended size: 24x24 pixels.</p>
+              {footerState.footerLogoUrl && (
+                <div className="mt-2 p-2 border rounded-md inline-block">
+                  <Image src={footerState.footerLogoUrl} alt="Logo Preview" width={24} height={24} className="object-contain" />
+                </div>
+              )}
             </div>
             
             <div className="space-y-2">
@@ -176,5 +194,3 @@ export default function FooterConfigPage() {
     </div>
   );
 }
-
-    
