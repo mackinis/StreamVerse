@@ -272,6 +272,79 @@ export async function resendTokenAction(email: string): Promise<ActionResult> {
   }
 }
 
+export async function updateUserProfileAction(userId: string, data: Partial<User>): Promise<ActionResult> {
+    if (!userId) {
+        return { success: false, error: 'ID de usuario no proporcionado.' };
+    }
+    try {
+        const userRef = doc(db, "users", userId);
+        await updateDoc(userRef, data);
+
+        const updatedDoc = await getDoc(userRef);
+        const updatedData = updatedDoc.data() as UserDocument;
+
+        const userToReturn: User = {
+          id: updatedDoc.id,
+          name: updatedData.name,
+          lastName: updatedData.lastName,
+          dni: updatedData.dni,
+          email: updatedData.email,
+          phone: updatedData.phone,
+          address: updatedData.address,
+          postalCode: updatedData.postalCode,
+          city: updatedData.city,
+          country: updatedData.country,
+          avatar: updatedData.avatar,
+          groups: updatedData.groups,
+          isAdmin: updatedData.isAdmin,
+          isVerified: updatedData.isVerified,
+          isSuspended: updatedData.isSuspended,
+          createdAt: updatedData.createdAt instanceof Timestamp ? updatedData.createdAt.toDate().toISOString() : undefined,
+        };
+
+        return { success: true, user: userToReturn };
+    } catch (error) {
+        console.error("Update Profile Action Error:", error);
+        return { success: false, error: (error as Error).message || 'Error al actualizar el perfil.' };
+    }
+}
+
+export async function changePasswordAction(userId: string, oldPassword: string, newPassword: string): Promise<ActionResult> {
+    if (!userId) {
+        return { success: false, error: 'ID de usuario no proporcionado.' };
+    }
+    try {
+        const userRef = doc(db, "users", userId);
+        const userDoc = await getDoc(userRef);
+
+        if (!userDoc.exists()) {
+            return { success: false, error: 'Usuario no encontrado.' };
+        }
+
+        const userData = userDoc.data() as UserDocument;
+        if (!userData.hashedPassword || !userData.salt) {
+            return { success: false, error: 'Error de configuración de cuenta. Contacte a soporte.' };
+        }
+        
+        const isOldPasswordValid = await verifyPassword(oldPassword, userData.salt, userData.hashedPassword);
+        if (!isOldPasswordValid) {
+            return { success: false, error: 'La contraseña antigua es incorrecta.' };
+        }
+
+        const { salt, hash } = await hashPassword(newPassword);
+        await updateDoc(userRef, {
+            hashedPassword: hash,
+            salt: salt,
+        });
+
+        return { success: true };
+    } catch (error) {
+        console.error("Change Password Action Error:", error);
+        return { success: false, error: (error as Error).message || 'Error al cambiar la contraseña.' };
+    }
+}
+
+
 export async function getSiteSettingsLogic(): Promise<SiteSettings> {
   const adminId = await findAdminUserId();
   

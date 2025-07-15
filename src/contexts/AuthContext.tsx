@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { User } from '@/types';
@@ -9,7 +10,6 @@ interface AuthContextType {
   login: (userData: User) => void;
   logout: () => void;
   loading: boolean;
-  updateUserVerificationStatus: (isVerified: boolean) => void; // For updating after verification
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const storedUser = localStorage.getItem('onlyfansly-user');
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      // Ensure essential fields like isVerified exist, default if not
       setUser({
         ...parsedUser,
         isVerified: parsedUser.isVerified !== undefined ? parsedUser.isVerified : false,
@@ -35,7 +34,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = (userData: User) => {
     const userToStore = {
         ...userData,
-        // Ensure critical fields are always present
         isVerified: userData.isVerified !== undefined ? userData.isVerified : false,
         isAdmin: userData.isAdmin !== undefined ? userData.isAdmin : false,
     };
@@ -48,21 +46,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem('onlyfansly-user');
   };
   
-  const updateUserVerificationStatus = (isVerified: boolean) => {
-    setUser(currentUser => {
-      if (currentUser) {
-        const updatedUser = { ...currentUser, isVerified };
-        localStorage.setItem('onlyfansly-user', JSON.stringify(updatedUser));
-        return updatedUser;
-      }
-      return null;
-    });
-  };
-
   const isAdmin = user?.isAdmin || false;
 
   return (
-    <AuthContext.Provider value={{ user, isAdmin, login, logout, loading, updateUserVerificationStatus }}>
+    <AuthContext.Provider value={{ user, isAdmin, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
